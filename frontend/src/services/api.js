@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const api = axios.create({ baseURL: "http://localhost:5000", timeout: 15000 });
+const api = axios.create({ 
+  baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000", 
+  timeout: 15000 
+});
 
 export const fetchPrices       = ()         => api.get("/api/crypto/prices");
 export const fetchGlobal       = ()         => api.get("/api/crypto/global");
