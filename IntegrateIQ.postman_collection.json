@@ -1,0 +1,158 @@
+{
+  "info": {
+    "name": "IntegrateIQ API",
+    "description": "API collection for IntegrateIQ - AI-Powered Integration Dashboard",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health",
+        "description": "Check if the API is running"
+      }
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Receive Webhook",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/webhooks/receive",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"user.created\",\n  \"data\": {\n    \"id\": 123,\n    \"name\": \"Jeremy\",\n    \"email\": \"jeremy@example.com\"\n  }\n}"
+            },
+            "description": "Simulate an incoming webhook payload"
+          }
+        },
+        {
+          "name": "Get Webhook Logs",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/webhooks/logs",
+            "description": "Retrieve all stored webhook logs"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Integrations",
+      "item": [
+        {
+          "name": "Fetch GitHub Repos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/integrations/github/torvalds",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "integrations", "github", "torvalds"]
+            },
+            "description": "Fetch GitHub repos for a user"
+          }
+        },
+        {
+          "name": "Fetch GitHub Repos + AI Summary",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/integrations/github/torvalds?summarize=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "integrations", "github", "torvalds"],
+              "query": [{ "key": "summarize", "value": "true" }]
+            },
+            "description": "Fetch GitHub repos with AI-generated summary"
+          }
+        },
+        {
+          "name": "Fetch Weather",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/integrations/weather/Jakarta",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "integrations", "weather", "Jakarta"]
+            },
+            "description": "Fetch current weather for a city"
+          }
+        },
+        {
+          "name": "Fetch Weather + AI Summary",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/integrations/weather/Jakarta?summarize=true",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "integrations", "weather", "Jakarta"],
+              "query": [{ "key": "summarize", "value": "true" }]
+            },
+            "description": "Fetch weather with AI-generated summary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Logs",
+      "item": [
+        {
+          "name": "Get All Logs",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/logs",
+            "description": "Get all integration logs"
+          }
+        },
+        {
+          "name": "Get Logs by Source",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/logs?source=github",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "logs"],
+              "query": [{ "key": "source", "value": "github" }]
+            }
+          }
+        },
+        {
+          "name": "Get Error Logs Only",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/logs?status=error",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "logs"],
+              "query": [{ "key": "status", "value": "error" }]
+            }
+          }
+        },
+        {
+          "name": "Get Log by TraceId",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/logs/:traceId",
+            "description": "Find a specific log by its traceId"
+          }
+        },
+        {
+          "name": "Clear All Logs",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/logs",
+            "description": "Delete all logs (dev/testing only)"
+          }
+        }
+      ]
+    }
+  ]
+}

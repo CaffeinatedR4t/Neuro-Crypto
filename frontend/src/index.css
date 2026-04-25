@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg:       #000000;
+  --s1:       #080808;
+  --s2:       #0f0f0f;
+  --s3:       #161616;
+  --border:   #1c1c1c;
+  --border2:  #252525;
+  --text:     #e2e2e2;
+  --muted:    #4a4a4a;
+  --dim:      #2a2a2a;
+  --green:    #00d26a;
+  --red:      #ff3b5c;
+  --yellow:   #f5c518;
+  --blue:     #4d9fff;
+  --orange:   #ff6b35;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.mono  { font-family: 'Space Mono', monospace; }
+.cond  { font-family: 'Barlow Condensed', sans-serif; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* Ticker animation */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: flex;
+  animation: ticker 40s linear infinite;
+  width: max-content;
+}
+
+.ticker-track:hover { animation-play-state: paused; }
+
+/* Blink cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor::after {
+  content: '▋';
+  animation: blink 1s step-end infinite;
+  color: var(--green);
+  margin-left: 2px;
+}
+
+/* Up/Down flash */
+@keyframes flashUp {
+  0%   { background: rgba(0, 210, 106, 0.15); }
+  100% { background: transparent; }
+}
+@keyframes flashDown {
+  0%   { background: rgba(255, 59, 92, 0.15); }
+  100% { background: transparent; }
+}
+
+.flash-up   { animation: flashUp   0.6s ease forwards; }
+.flash-down { animation: flashDown 0.6s ease forwards; }
+
+/* Card base */
+.card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.card:hover { border-color: var(--border2); }
